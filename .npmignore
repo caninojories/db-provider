@@ -1,10 +1,6 @@
 # source
-lib
-tests
 index.ts
-package-lock.json
 tslint.json
-tsconfig.json
 .prettierrc
 .commitlintrc.json
 .eslintignore
