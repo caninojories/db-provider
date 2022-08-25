@@ -20,7 +20,8 @@
     "release": "release-it"
   },
   "dependencies": {
-    "mongoose": "6.5.3"
+    "mongoose": "6.5.3",
+    "typeorm": "0.3.7"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",

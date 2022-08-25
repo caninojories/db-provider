@@ -5,6 +5,7 @@ import {
   ModuleMetadata,
 } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
 
 export const DbProviderSqlKey = 'DATABASE_SQL_CONNECTION';
 
@@ -55,6 +56,10 @@ export class DbProviderSqlModule {
               autoLoadEntities: autoLoadEntities,
               synchronize: synchronize,
             };
+          },
+          dataSourceFactory: async (options: DataSourceOptions | undefined) => {
+            const dataSource = await new DataSource(options as DataSourceOptions).initialize();
+            return dataSource;
           },
         });
       },
