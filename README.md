@@ -1,4 +1,4 @@
-# DB Provider
+# Intervu.ai DB Provider
 
 ## Description
 
