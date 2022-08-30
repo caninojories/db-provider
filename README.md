@@ -154,9 +154,44 @@ import { DbProviderNoSqlModule } from 'db-provider';
           uri: configService.get(configService.get('db.mongo.url')),
         };
       },
+      connection: 'connection1',
+      inject: [ConfigService],
+    }),
+    DbProviderNoSqlModule.registerAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          uri: configService.get(configService.get('db.mongo.url')),
+        };
+      },
+      connection: 'connection2',
       inject: [ConfigService],
     }),
   ],
 })
 export class DatabaseModule {}
+
+# Import them in the module level
+TypeOrmModule.forFeature([User], 'connection2'),
+  TypeOrmModule.forFeature([User], 'connection1'),
+  MongooseModule.forFeature([{ name: UserModel.name, schema: UserSchema }], 'connection1'),
+  MongooseModule.forFeature([{ name: UserModel.name, schema: UserSchema }], 'connection2'),
+]
+
+# Using it in the service
+@Injectable()
+export class IamAgentService {
+  constructor(
+    @InjectModel(UserModel.name, 'connection1') private userModel: Model<UserDocument>
+  ) {}
+
+  async save(user: User): Promise<User[] | ErrorType> {
+    const userData = new UserModel()
+    userData.assimilate({
+      username: user.username,
+      password: user.password
+    })
+    
+    return new this.userModel(userData).save()
+  }
+}
 ```
