@@ -20,12 +20,11 @@
     "release": "release-it"
   },
   "dependencies": {
+    "@nestjs/mongoose": "9.2.0",
     "mongoose": "6.5.3",
     "typeorm": "0.3.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.0.3",
-    "@commitlint/config-angular": "17.0.3",
     "@nestjs/common": "9.0.11",
     "@nestjs/core": "9.0.11",
     "@nestjs/platform-express": "9.0.11",
@@ -36,7 +35,6 @@
     "eslint": "8.22.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
-    "husky": "8.0.1",
     "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "reflect-metadata": "0.1.13",
@@ -49,16 +47,5 @@
     "@nestjs/common": "^7.0.0 || ^8.0.0 || ^9.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.0.0 || ^7.2.0"
-  },
-  "lint-staged": {
-    "*.ts": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
-    }
   }
 }

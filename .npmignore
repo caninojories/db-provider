@@ -1,7 +1,6 @@
 # source
 tslint.json
 .prettierrc
-.commitlintrc.json
 .eslintignore
 .eslintrc.js
 
