@@ -18,17 +18,20 @@ type DbProviderNoSqlAsyncModuleOptions = {
   useFactory: (
     ...args: any[]
   ) => Promise<DbProviderNoSqlOptions> | DbProviderNoSqlOptions;
+  name?: string;
 } & Pick<ModuleMetadata, 'imports'> &
   Pick<FactoryProvider, 'inject'>;
 
 @Module({})
 export class DbProviderNoSqlModule {
   static async registerAsync({
+    name,
     useFactory,
     imports,
     inject,
   }: DbProviderNoSqlAsyncModuleOptions): Promise<DynamicModule> {
     const dbProvider = {
+      name,
       provide: DbProviderNoSqlKey,
       useFactory: async (args: DbProviderNoSqlOptions) => {
         const { uri, options = {} } = await useFactory(args);

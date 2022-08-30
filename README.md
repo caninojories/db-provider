@@ -94,6 +94,12 @@ import { DbProviderSqlModule } from 'db-provider';
 })
 export class DatabaseModule {}
 
+# Import them in the module level
+imports: [
+  TypeOrmModule.forFeature([User], 'connection2'),
+  TypeOrmModule.forFeature([User], 'connection1'),
+],
+
 # Using it in the service
 @Injectable()
 export class IamAgentService {
@@ -110,4 +116,47 @@ export class IamAgentService {
     return this.userRepository.find();
   }
 }
+```
+
+## How to used MongoDb Provider
+```
+# Create the Database module
+# Single connection database
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { DbProviderNoSqlModule } from 'db-provider';
+
+@Module({
+  imports: [
+    DbProviderNoSqlModule.registerAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          uri: configService.get(configService.get('db.mongo.url')),
+        };
+      },
+      inject: [ConfigService],
+    }),
+  ],
+})
+export class DatabaseModule {}
+
+# Multiple connection database
+# Create the Database module
+import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { DbProviderNoSqlModule } from 'db-provider';
+
+@Module({
+  imports: [
+    DbProviderNoSqlModule.registerAsync({
+      useFactory: (configService: ConfigService) => {
+        return {
+          uri: configService.get(configService.get('db.mongo.url')),
+        };
+      },
+      inject: [ConfigService],
+    }),
+  ],
+})
+export class DatabaseModule {}
 ```
