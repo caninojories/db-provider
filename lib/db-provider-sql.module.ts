@@ -3,6 +3,7 @@ import {
   DynamicModule,
   FactoryProvider,
   ModuleMetadata,
+  Logger,
 } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
@@ -34,9 +35,11 @@ export class DbProviderSqlModule {
       useFactory,
       name,
       dataSourceFactory: async (options: DataSourceOptions | undefined) => {
-        const dataSource = await new DataSource(
+        const dataSource: DataSource = await new DataSource(
           options as DataSourceOptions,
         ).initialize();
+
+        Logger.log(`${options?.name} has been connected`);
         return dataSource;
       },
       inject,

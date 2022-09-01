@@ -15,14 +15,16 @@
     "publish:npm": "npm publish --access public",
     "prepublish:next": "npm run build",
     "publish:next": "npm publish --access public --tag next",
-    "test:integration": "jest --config ./tests/jest-e2e.json --runInBand",
     "prerelease": "npm run build",
-    "release": "release-it"
+    "release": "release-it",
+    "version": "npm run format && git add -A .",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
+    "@nestjs/config": "2.2.0",
     "@nestjs/mongoose": "9.2.0",
-    "mongoose": "6.5.4",
     "@nestjs/typeorm": "9.0.1",
+    "mongoose": "6.5.4",
     "typeorm": "0.3.9"
   },
   "devDependencies": {
