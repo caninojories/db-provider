@@ -1,6 +1,6 @@
 {
   "name": "db-provider",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Database module (noSQL, SQL)",
   "author": "Jo-Ries Canino",
   "private": true,
