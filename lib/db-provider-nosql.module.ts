@@ -5,16 +5,20 @@ import {
   ModuleMetadata,
 } from '@nestjs/common';
 import { Module } from '@nestjs/common';
-import { MongooseModule, MongooseModuleFactoryOptions } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
-import { Connection } from 'mongoose';
+import { Connection, ConnectOptions } from 'mongoose';
 
 export const DbProviderNoSqlKey = 'DATABASE_NOSQL_CONNECTION';
 
+type DbProviderNoSqlOptions = {
+  uri?: string;
+  retryAttempts?: number;
+  retryDelay?: number;
+} & ConnectOptions;
+
 type DbProviderNoSqlAsyncModuleOptions = {
-  useFactory: (
-    ...args: any[]
-  ) => Promise<MongooseModuleFactoryOptions> | MongooseModuleFactoryOptions;
+  useFactory: (...args: any[]) => DbProviderNoSqlOptions;
   name?: string;
 } & Pick<ModuleMetadata, 'imports'> &
   Pick<FactoryProvider, 'inject'>;
